@@ -1,0 +1,13 @@
+---
+- name: install zabbix rpm key
+  rpm_key: key=http://repo.zabbix.com/zabbix-official-repo.key state=present
+
+- name: setup zabbix repo
+  template: src=zabbix.repo.j2 dest=/etc/yum.repo.d/zabbix.repo
+
+- name: install zabbix server
+  yum: name={{ item }} state={{ zabbix_server_state }}
+  with_items:
+    - zabbix-server-{{ zabbix_server_DBType }}
+    - zabbix-web-{{ zabbix_server_DBType }}
+    - php5-{{ zabbix_server_DBType }}

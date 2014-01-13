@@ -1,0 +1,25 @@
+---
+ - name: setup zabbix database 
+   sudo_user: postgres
+   postgresql_db:
+     db: "{{ zabbix_server_DBName }}"
+     encoding: 'UTF-8'
+     lc_collate: 'en_US.UTF-8'
+     lc_ctype: 'en_US.UTF-8'
+     template: 'template0'
+     state: present
+
+ - name: grant access for database to zabbix user
+   sudo_user: postgres
+   postgresql_user:
+     db: "{{ zabbix_server_DBName }}"
+     user: "{{ zabbix_server_DBUser }}"
+     password: "{{ zabbix_server_DBPassword }}"
+     role_attr_flags: "CREATEDB,SUPERUSER" #check attributs
+     state: present
+
+ - name: ensure postgresql is running
+   service:
+     name: postgresql
+     state: started
+     enabled: yes
