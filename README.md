@@ -13,6 +13,6 @@ An ansible role for installing zabbix server
 
 https://github.com/jdauphant/ansible-role-zabbix-server
 
-## Information:
-This role is base on the model : https://github.com/resmo/ansible-role-zabbix-agent
-
+## Informations:
+This role is base on the structure of : https://github.com/resmo/ansible-role-zabbix-agent
+Tested on Ubuntu, not on Redhat family
