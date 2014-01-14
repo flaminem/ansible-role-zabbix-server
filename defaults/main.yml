@@ -27,3 +27,4 @@ zabbix_server_DBName: "zabbix"
 zabbix_server_DBUser: "zabbix"
 zabbix_server_DBPassword: "zabbix-password"
 
+zabbix_server_sql_path: /usr/share/zabbix-server

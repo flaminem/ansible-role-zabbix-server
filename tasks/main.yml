@@ -8,14 +8,14 @@
   tags: package
 
 - include: postgres.yml
-  when:  zabbix_server_DBType == "pgsql"
+  when:  zabbix_server_DBType == "pgsql" and zabbix_server_DBHost == "localhost"
 
 - name: configure zabbix server
   template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf owner=zabbix group=zabbix mode=0640
   notify: restart zabbix-server
 
 - name: configure zabbix php frontend
-  template: src=zabbix.conf.php.j2  dest=/usr/share/zabbix/conf/zabbix.conf.php owner=zabbix group=zabbix mode=0640
+  template: src=zabbix.conf.php.j2  dest=/usr/share/zabbix/conf/zabbix.conf.php owner=zabbix group=www-data mode=0640
 
-- name: run zabbix server
+- name: ensure zabbix server is running
   service: name=zabbix-server state=running enabled=yes
