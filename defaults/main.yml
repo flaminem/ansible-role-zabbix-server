@@ -7,7 +7,8 @@ zabbix_repo: 'zabbix.com'
 zabbix_minor_version: '2.0'
 
 # Bind agent to an IP, e.g. ansible_eth0.ipv4.address
-zabbix_server_listen_ip: "0.0.0.0"
+zabbix_server_listen_ip: '0.0.0.0'
+zabbix_server_port: '10051'
 
 # Name of the host
 zabbix_agent_hostname: "{{ ansible_fqdn }}"
@@ -18,13 +19,13 @@ zabbix_server_state: installed
 
 # Database type
 # NOTE: mysql not implemented
-zabbix_server_DBType: "pgsql"
+zabbix_server_DBType: 'pgsql'
 
 # Database configuration
-zabbix_server_DBHost: "localhost"
-zabbix_server_DBPort: "5432"
-zabbix_server_DBName: "zabbix"
-zabbix_server_DBUser: "zabbix"
-zabbix_server_DBPassword: "zabbix-password"
+zabbix_server_DBHost: 'localhost'
+zabbix_server_DBPort: '5432'
+zabbix_server_DBName: 'zabbix'
+zabbix_server_DBUser: 'zabbix'
+zabbix_server_DBPassword: 'zabbix-password'
 
 zabbix_server_sql_path: /usr/share/zabbix-server
