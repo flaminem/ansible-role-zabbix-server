@@ -2,20 +2,26 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
   tags: package
+  tags: ["zabbix-server","packages"]
 
 - include: RedHat.yml
   when: ansible_os_family == 'RedHat'
   tags: package
+  tags: ["zabbix-server","packages"]
 
 - include: postgres.yml
   when:  zabbix_server_DBType == "pgsql" and zabbix_server_DBHost == "localhost"
+  tags: ["zabbix-server","postgres","configuration"]
 
 - name: configure zabbix server
   template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf owner=zabbix group=zabbix mode=0640
   notify: restart zabbix-server
+  tags: ["zabbix-server","configuration"]
 
 - name: configure zabbix php frontend
   template: src=zabbix.conf.php.j2  dest=/usr/share/zabbix/conf/zabbix.conf.php owner=zabbix group=www-data mode=0640
+  tags: ["zabbix-server","configuration"]
 
 - name: ensure zabbix server is started
   service: name=zabbix-server state=started enabled=yes
+  tags: ["zabbix-server","service"]
