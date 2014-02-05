@@ -1,4 +1,10 @@
 ---
+ - name: ensure postgresql is running
+   service:
+     name: postgresql
+     state: started
+     enabled: yes
+
  - name: setup zabbix database 
    sudo_user: postgres
    postgresql_db:
@@ -18,12 +24,6 @@
      password: "{{ zabbix_server_DBPassword }}"
      role_attr_flags: "CREATEDB,SUPERUSER" #check attributs
      state: present
-
- - name: ensure postgresql is running
-   service:
-     name: postgresql
-     state: started
-     enabled: yes
 
  - name: ensure postgresql database is populated
    sudo_user: postgres

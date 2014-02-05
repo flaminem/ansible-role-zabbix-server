@@ -17,5 +17,5 @@
 - name: configure zabbix php frontend
   template: src=zabbix.conf.php.j2  dest=/usr/share/zabbix/conf/zabbix.conf.php owner=zabbix group=www-data mode=0640
 
-- name: ensure zabbix server is running
-  service: name=zabbix-server state=running enabled=yes
+- name: ensure zabbix server is started
+  service: name=zabbix-server state=started enabled=yes

@@ -15,7 +15,7 @@ zabbix_agent_hostname: "{{ ansible_fqdn }}"
 
 # Package state:
 # NOTE: absent does not yet work as expected.
-zabbix_server_state: installed
+zabbix_server_state: present
 
 # Database type
 # NOTE: mysql not implemented
