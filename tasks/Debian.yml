@@ -5,3 +5,4 @@
     - zabbix-server-{{ zabbix_server_DBType }}
     - zabbix-frontend-php
     - php5-{{ zabbix_server_DBType }}
+    - python-psycopg2
