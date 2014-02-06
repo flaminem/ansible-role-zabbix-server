@@ -1,17 +1,32 @@
 ---
-- include: Debian.yml
+- name: debian | install zabbix server
+  apt: name={{ item }} state={{ zabbix_server_state }}
+  with_items:
+    - zabbix-server-{{ zabbix_server_DBType }}
+    - zabbix-frontend-php
+    - php5-{{ zabbix_server_DBType }}
+    - python-psycopg2
   when: ansible_os_family == 'Debian'
-  tags: package
   tags: ["zabbix-server","packages"]
 
-- include: RedHat.yml
+- name: redhat | install zabbix server
+  yum: name={{ item }} state={{ zabbix_server_state }}
+  with_items:
+    - zabbix-server-{{ zabbix_server_DBType }}
+    - zabbix-web-{{ zabbix_server_DBType }}
+    - php5-{{ zabbix_server_DBType }}
+    - python-psycopg2
   when: ansible_os_family == 'RedHat'
-  tags: package
   tags: ["zabbix-server","packages"]
 
 - include: postgres.yml
   when:  zabbix_server_DBType == "pgsql" and zabbix_server_DBHost == "localhost"
   tags: ["zabbix-server","postgres","configuration"]
+
+- name: ensure log folder exist
+  file: path=/var/log/zabbix state=directory owner={{zabbix_server_user}} group={{zabbix_server_group}} mode=700 
+  notify: restart zabbix-server
+  tags: ["configuration","zabbix-agent"]
 
 - name: configure zabbix server
   template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf owner=zabbix group=zabbix mode=0640

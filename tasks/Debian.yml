@@ -1,8 +1,0 @@
----
- - name: install zabbix server
-   apt: name={{ item }} state={{ zabbix_server_state }}
-   with_items:
-    - zabbix-server-{{ zabbix_server_DBType }}
-    - zabbix-frontend-php
-    - php5-{{ zabbix_server_DBType }}
-    - python-psycopg2
