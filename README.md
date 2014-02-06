@@ -14,6 +14,6 @@ An ansible role for installing zabbix server
 https://github.com/jdauphant/ansible-role-zabbix-server
 
 ## Informations:
-This role is base on the structure of : https://github.com/resmo/ansible-role-zabbix-agent
-Tested on Ubuntu, not on Redhat family
-Postgresql support only for the moment
+- This role is base on the structure of : https://github.com/resmo/ansible-role-zabbix-agent
+- Tested on Ubuntu, not on Redhat family
+- Postgresql support only for the moment
