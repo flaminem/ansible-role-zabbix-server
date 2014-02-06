@@ -1,1 +1,13 @@
 ---
+zabbix_server_sql_path: "/usr/share/zabbix-server{% if zabbix_server_version != '1.8'%}-{{zabbix_server_DBType}}{% endif %}"
+
+zabbix_server_sql_files: {
+    "1.8": ["{{ zabbix_server_sql_path }}/postgresql.sql",
+          "{{ zabbix_server_sql_path }}/data.sql"],
+    "2.0": ["{{ zabbix_server_sql_path }}/schema.sql",
+          "{{ zabbix_server_sql_path }}/data.sql",
+          "{{ zabbix_server_sql_path }}/images.sql"],
+    "2.2": ["{{ zabbix_server_sql_path }}/schema.sql",
+          "{{ zabbix_server_sql_path }}/data.sql",
+          "{{ zabbix_server_sql_path }}/images.sql"],
+    }
