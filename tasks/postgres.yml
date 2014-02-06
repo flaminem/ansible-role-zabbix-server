@@ -1,10 +1,4 @@
 ---
- - name: ensure postgresql is running
-   service:
-     name: postgresql
-     state: started
-     enabled: yes
-
  - name: setup zabbix database 
    sudo_user: postgres
    postgresql_db:
@@ -28,7 +22,5 @@
  - name: ensure postgresql database is populated
    sudo_user: postgres
    shell: psql -p {{zabbix_server_DBPort}} {{ zabbix_server_DBName }} < {{item}}
-   with_items:
-      - "{{ zabbix_server_sql_path }}/postgresql.sql"
-      - "{{ zabbix_server_sql_path }}/data.sql"
+   with_items: zabbix_server_sql_files[zabbix_server_version]
    when: result.changed
