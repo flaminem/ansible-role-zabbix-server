@@ -6,7 +6,8 @@ before_install:
  - sudo apt-get install -qq python-apt python-pycurl
 install:
   - pip install ansible
+  - sudo git clone https://github.com/jdauphant/ansible-role-zabbix-common.git ../zabbix-common
 script:
   - echo localhost > inventory
-  - ansible-playbook --syntax-check -i inventory test.yml
-  - ansible-playbook -i inventory test.yml --connection=local --sudo -vvvv
+  - ansible-playbook -i inventory --syntax-check --list-tasks test.yml
+  - ansible-playbook -i inventory --connection=local --sudo -vvvv test.yml
