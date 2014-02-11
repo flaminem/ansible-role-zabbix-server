@@ -60,6 +60,7 @@ LogFile=/var/log/zabbix/zabbix_server.log
 # Range: 0-4
 # Default:
 # DebugLevel=3
+DebugLevel={{zabbix_server_config_debug_level}}
 
 ### Option: PidFile
 #	Name of PID file.
@@ -213,8 +214,6 @@ JavaGateway={{zabbix_java_gateway_config_listen_ip}}
 # JavaGatewayPort=10052
 JavaGatewayPort={{zabbix_java_gateway_config_listen_port}}
 
-{% endif %}
-
 ### Option: StartJavaPollers
 #	Number of pre-forked instances of Java pollers.
 #
@@ -222,6 +221,8 @@ JavaGatewayPort={{zabbix_java_gateway_config_listen_port}}
 # Range: 0-1000
 # Default:
 # StartJavaPollers=0
+StartJavaPollers={{zabbix_java_gateway_config_java_pollers}}
+{% endif %}
 
 ### Option: StartVMwareCollectors
 #	Number of pre-forked vmware collector instances.
