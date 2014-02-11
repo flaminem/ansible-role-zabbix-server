@@ -7,7 +7,7 @@
     - php5-{{ zabbix_server_DBType }}
     - python-psycopg2
   when: ansible_os_family == 'Debian'
-  tags: ["zabbix-server","packages"]
+  tags: ["zabbix-server","packages","zabbix"]
 
 - name: redhat | install zabbix server
   yum: name={{ item }} state={{ zabbix_server_pkg_state }}
@@ -17,7 +17,7 @@
     - php5-{{ zabbix_server_DBType }}
     - python-psycopg2
   when: ansible_os_family == 'RedHat'
-  tags: ["zabbix-server","packages"]
+  tags: ["zabbix-server","packages","zabbix"]
 
 - include: postgres.yml
   when:  zabbix_server_DBType == "pgsql" and zabbix_server_DBHost == "localhost"
@@ -26,20 +26,20 @@
 - name: ensure log folder exist
   file: path=/var/log/zabbix state=directory owner={{zabbix_server_user}} group={{zabbix_server_group}} mode=700 
   notify: restart zabbix-server
-  tags: ["configuration","zabbix-agent"]
+  tags: ["configuration","zabbix-server","zabbix"]
 
 - name: configure zabbix server
   template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf owner=zabbix group=zabbix mode=0640
   notify: restart zabbix-server
-  tags: ["zabbix-server","configuration"]
+  tags: ["zabbix-server","configuration","zabbix"]
 
 - name: configure zabbix php frontend
   template: src=zabbix.conf.php.j2  dest=/usr/share/zabbix/conf/zabbix.conf.php owner=zabbix group=www-data mode=0640
-  tags: ["zabbix-server","configuration"]
+  tags: ["zabbix-server","configuration","zabbix"]
 
 - include: java_gateway.yml
   when: zabbix_java_gateway_state == "present"
 
 - name: ensure zabbix server is started
   service: name=zabbix-server state=started enabled=yes
-  tags: ["zabbix-server","service"]
+  tags: ["zabbix-server","service","zabbix"]
