@@ -21,6 +21,6 @@
 
  - name: ensure postgresql database is populated
    sudo_user: postgres
-   shell: psql -p {{zabbix_server_DBPort}} {{ zabbix_server_DBName }} < {{item}}
+   shell: psql {{ zabbix_server_DBName }} < {{item}} ; sleep 5
    with_items: zabbix_server_sql_files[zabbix_server_version]
    when: result.changed

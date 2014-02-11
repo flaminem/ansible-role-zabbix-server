@@ -1,0 +1,20 @@
+---
+- name: install zabbix java gateway for Debian OS family
+  apt: pkg=zabbix-java-gateway state={{ zabbix_server_pkg_state }}
+  when: ansible_os_family == 'Debian'
+  tags: ["packages","zabbix-server"]
+
+- name: install zabbix java gateway for RedHat OS family
+  yum: name=zabbix-java-gateway state={{ zabbix_server_pkg_state }}
+  when: ansible_os_family == 'RedHat'
+  tags: ["packages","zabbix-server"]
+
+- name: configure zabbix java gateway
+  template: src=zabbix_java_gateway.conf.j2 dest=/etc/zabbix/zabbix_java_gateway.conf
+  notify: restart zabbix java gateway
+  tags: ["configuration","zabbix-server"]
+
+- name: ensure zabbix java gateway started/stopped
+  service: name=zabbix-java-gateway state={{ zabbix_java_gateway_service_state }} enabled={{ zabbix_java_gateway_service_enabled }}
+  tags: ["service","zabbix-server"]
+

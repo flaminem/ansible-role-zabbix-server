@@ -15,7 +15,7 @@ zabbix_agent_hostname: "{{ ansible_fqdn }}"
 
 # Package state:
 # NOTE: absent does not yet work as expected.
-zabbix_server_state: present
+zabbix_server_pkg_state: present
 
 # Database type
 # NOTE: mysql not implemented
@@ -30,3 +30,11 @@ zabbix_server_DBPassword: 'zabbix-password'
 
 zabbix_server_user: "zabbix"
 zabbix_server_group: "zabbix"
+
+zabbix_java_gateway_state: present
+zabbix_java_gateway_service_state: started
+zabbix_java_gateway_service_enabled: yes
+zabbix_java_gateway_config_listen_ip: localhost
+zabbix_java_gateway_config_listen_port: 10052
+zabbix_java_gateway_config_pid_file: "/var/run/zabbix/zabbix_java_gateway.pid"
+zabbix_java_gateway_config_start_pollers: 5

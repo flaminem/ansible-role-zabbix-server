@@ -1,6 +1,6 @@
 ---
 - name: debian | install zabbix server
-  apt: name={{ item }} state={{ zabbix_server_state }}
+  apt: name={{ item }} state={{ zabbix_server_pkg_state }}
   with_items:
     - zabbix-server-{{ zabbix_server_DBType }}
     - zabbix-frontend-php
@@ -10,7 +10,7 @@
   tags: ["zabbix-server","packages"]
 
 - name: redhat | install zabbix server
-  yum: name={{ item }} state={{ zabbix_server_state }}
+  yum: name={{ item }} state={{ zabbix_server_pkg_state }}
   with_items:
     - zabbix-server-{{ zabbix_server_DBType }}
     - zabbix-web-{{ zabbix_server_DBType }}
@@ -36,6 +36,9 @@
 - name: configure zabbix php frontend
   template: src=zabbix.conf.php.j2  dest=/usr/share/zabbix/conf/zabbix.conf.php owner=zabbix group=www-data mode=0640
   tags: ["zabbix-server","configuration"]
+
+- include: java_gateway.yml
+  when: zabbix_java_gateway_state == "present"
 
 - name: ensure zabbix server is started
   service: name=zabbix-server state=started enabled=yes
