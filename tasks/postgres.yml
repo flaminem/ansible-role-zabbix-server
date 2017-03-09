@@ -1,6 +1,6 @@
 ---
  - name: setup zabbix database 
-   sudo_user: postgres
+   become_user: postgres
    postgresql_db:
      db: "{{ zabbix_server_DBName }}"
      encoding: 'UTF-8'
@@ -11,7 +11,7 @@
    register: result
 
  - name: grant access for database to zabbix user
-   sudo_user: postgres
+   become_user: postgres
    postgresql_user:
      db: "{{ zabbix_server_DBName }}"
      user: "{{ zabbix_server_DBUser }}"
@@ -20,7 +20,7 @@
      state: present
 
  - name: ensure postgresql database is populated
-   sudo_user: postgres
+   become_user: postgres
    shell: psql {{ zabbix_server_DBName }} < {{item}} ; sleep 5
    with_items: zabbix_server_sql_files[zabbix_server_version]
    when: result.changed
